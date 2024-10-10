@@ -33,8 +33,17 @@
                                         {{-- <td class="px-6 py-4">
                                             <img class="w-8 h-8 rounded-full" src="https://picsum.photos/200" />
                                         </td> --}}
-                                        <td class="px-6 py-4 text-center">
-                                            Manage
+                                        <td class="px-6 py-4 flex justify-center">
+                                            <a href="{{ route('albums.edit', $album) }}" class="focus:outline-none text-white bg-yellow-700 hover:bg-yellow-800 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
+                                                Edit
+                                            </a>
+                                            <form action="{{ route('albums.destroy', $album) }}" method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" onclick="return confirm('Are you sure?');" class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
+                                                    Delete
+                                                </button>
+                                            </form>
                                         </td>
                                         <!-- Додаткові рядки -->
                                     </tr>

@@ -47,24 +47,30 @@ class AlbumController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Album $album)
     {
-        //
+        return view('albums.edit', compact('album'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Album $album)
     {
-        //
+        $album->update($request->validate([
+            'title' => 'required|string|min:2|max:255',
+        ]));
+
+        return to_route('albums.index')->with('success', 'Album updated successfully');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Album $album)
     {
-        //
+        $album->delete();
+
+        return to_route('albums.index')->with('success', 'Album deleted successfully');
     }
 }
