@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Album;
 use Illuminate\Http\Request;
 
 class AlbumController extends Controller
@@ -11,7 +12,8 @@ class AlbumController extends Controller
      */
     public function index()
     {
-        return view('albums.index');
+        $albums = Album::paginate(5);
+        return view('albums.index', compact('albums'));
     }
 
     /**
@@ -27,7 +29,11 @@ class AlbumController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Album::create($request->validate([
+            'title' => 'required|string|min:2|max:255',
+        ]));
+
+        return to_route('albums.index')->with('success', 'Album created successfully');
     }
 
     /**

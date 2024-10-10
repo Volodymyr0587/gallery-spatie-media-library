@@ -26,21 +26,27 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @forelse ($albums as $album)
                                     <tr class="border-b border-neutral-200 dark:border-white/10">
-                                        <td class="px-6 py-4 font-medium text-center">1</td>
-                                        <td class="px-6 py-4 text-center">image 1</td>
+                                        <td class="px-6 py-4 font-medium text-center">{{ $album->id }}</td>
+                                        <td class="px-6 py-4 text-center">{{ $album->title }}</td>
                                         {{-- <td class="px-6 py-4">
                                             <img class="w-8 h-8 rounded-full" src="https://picsum.photos/200" />
                                         </td> --}}
                                         <td class="px-6 py-4 text-center">
                                             Manage
                                         </td>
+                                        <!-- Додаткові рядки -->
                                     </tr>
-                                    <!-- Додаткові рядки -->
+                                    @empty
+                                    <tr class="border-b border-neutral-200 dark:border-white/10">
+                                        No Albums Yet.
+                                    </tr>
+                                    @endforelse
                                 </tbody>
                             </table>
                             <div class="mt-4">
-                                Pagination
+                                {{ $albums->links() }}
                             </div>
                         </div>
                     </div>
