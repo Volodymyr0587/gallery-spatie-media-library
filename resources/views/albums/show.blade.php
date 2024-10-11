@@ -37,11 +37,32 @@
                             </div>
                             <div class="mt-4">
                                 <div class="grid grid-cols-2 md:grid-cols-3 gap-2 md:gap-4">
-                                    @foreach ($photos as $photo)
-                                    <img src="{{ asset('storage/' . $photo->id . '/' . $photo->file_name) }}" alt="">
-                                    {{-- <img src="{{ $photo->getUrl() }}" alt="{{ $photo->name }}"> --}}
-                                    {{-- <img src="{{ $photo->getUrl('old-picture') }}" alt="old-picture"> --}}
-                                    {{-- <img src="{{ $photo->getPath() }}" alt="asdd"> --}}
+                                    @foreach ($images as $image)
+                                    <div>
+                                        <a href="{{ route('album.image.show', [$album, $image]) }}"
+                                        class="block relative h-56 rounded overflow-hidden">
+                                        <img class="object-cover object-center w-full h-full block"
+                                            src="{{ asset('storage/' . $image->id . '/' . $image->file_name) }}" alt="">
+                                        </a>
+                                        <div class="mt-4 flex justify-between">
+                                            <a href="{{ route('album.image.show', [$album, $image]) }}"
+                                                class="focus:outline-none text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
+                                                Full image
+                                            </a>
+                                            <form action="{{ route('album.image.destroy', [$album, $image]) }}" method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" onclick="return confirm('Are you sure?');" class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
+                                                    Delete
+                                                </button>
+                                            </form>
+                                        </div>
+
+                                        {{-- <img src="{{ $image->getUrl() }}" alt="{{ $image->name }}"> --}}
+                                        {{-- <img src="{{ $image->getUrl('old-picture') }}" alt="old-picture"> --}}
+                                        {{-- <img src="{{ $image->getPath() }}" alt="asdd"> --}}
+                                    </div>
+
                                     @endforeach
                                 </div>
                             </div>

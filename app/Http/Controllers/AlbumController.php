@@ -41,12 +41,12 @@ class AlbumController extends Controller
      */
     public function show(Album $album)
     {
-        // $photos = $album->getMedia(collectionName: "$album->title-photos");
-        $photos = $album->getMedia();
+        // $images = $album->getMedia(collectionName: "$album->title-images");
+        $images = $album->getMedia();
 
-        // dd($photos);
+        // dd($images);
 
-        return view('albums.show', compact('album', 'photos'));
+        return view('albums.show', compact('album', 'images'));
     }
 
     /**
@@ -89,6 +89,24 @@ class AlbumController extends Controller
             $album->addMedia($request->image)->toMediaCollection();
 
         }
+
+        return redirect()->back();
+    }
+
+    public function showImage(Album $album, $id)
+    {
+        $media = $album->getMedia();
+        $image = $media->where('id', $id)->first();
+
+        return view('albums.image-show', compact('album', 'image'));
+    }
+
+    public function destroyImage(Album $album, $id)
+    {
+        $media = $album->getMedia();
+        $image = $media->where('id', $id)->first();
+
+        $image->delete();
 
         return redirect()->back();
     }

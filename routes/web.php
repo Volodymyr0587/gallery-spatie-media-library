@@ -12,6 +12,10 @@ Route::resource('/albums', AlbumController::class)
     ->middleware(['auth']);
 Route::post('/alubms/{album}/upload', [AlbumController::class, 'upload'])
     ->middleware(['auth'])->name('albums.upload');
+Route::get('albums/{album}/image/{image}', [AlbumController::class, 'showImage'])
+    ->name('album.image.show');
+Route::delete('albums/{album}/image/{image}', [AlbumController::class, 'destroyImage'])
+    ->name('album.image.destroy');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
