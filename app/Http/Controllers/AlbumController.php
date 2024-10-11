@@ -41,7 +41,12 @@ class AlbumController extends Controller
      */
     public function show(Album $album)
     {
-        return view('albums.show', compact('album'));
+        // $photos = $album->getMedia(collectionName: "$album->title-photos");
+        $photos = $album->getMedia();
+
+        // dd($photos);
+
+        return view('albums.show', compact('album', 'photos'));
     }
 
     /**
@@ -80,7 +85,9 @@ class AlbumController extends Controller
             $request->validate([
                 'image' => 'required|image|mimes:png,jpg,jpeg|max:10000'
             ]);
+            // $album->addMedia($request->image)->toMediaCollection("$album->title-photos");
             $album->addMedia($request->image)->toMediaCollection();
+
         }
 
         return redirect()->back();
