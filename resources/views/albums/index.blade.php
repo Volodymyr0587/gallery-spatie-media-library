@@ -29,7 +29,9 @@
                                     @forelse ($albums as $album)
                                     <tr class="border-b border-neutral-200 dark:border-white/10">
                                         <td class="px-6 py-4 font-medium text-center">{{ $album->id }}</td>
-                                        <td class="px-6 py-4 text-center">{{ $album->title }}</td>
+                                        <td class="px-6 py-4 text-center">
+                                            <a class="text-indigo-500 hover:text-indigo-700 font-semibold" href="{{ route('albums.show', $album) }}">{{ $album->title }}</a>
+                                        </td>
                                         {{-- <td class="px-6 py-4">
                                             <img class="w-8 h-8 rounded-full" src="https://picsum.photos/200" />
                                         </td> --}}

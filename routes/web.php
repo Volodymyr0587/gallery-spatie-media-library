@@ -8,7 +8,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('/albums', AlbumController::class)->middleware(['auth']);
+Route::resource('/albums', AlbumController::class)
+    ->middleware(['auth']);
+Route::post('/alubms/{album}/upload', [AlbumController::class, 'upload'])
+    ->middleware(['auth'])->name('albums.upload');
 
 Route::get('/dashboard', function () {
     return view('dashboard');

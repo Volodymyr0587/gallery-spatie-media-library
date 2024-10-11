@@ -39,9 +39,9 @@ class AlbumController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Album $album)
     {
-        //
+        return view('albums.show', compact('album'));
     }
 
     /**
@@ -72,5 +72,17 @@ class AlbumController extends Controller
         $album->delete();
 
         return to_route('albums.index')->with('success', 'Album deleted successfully');
+    }
+
+    public function upload(Request $request, Album $album)
+    {
+        if ($request->hasFile('image')) {
+            $request->validate([
+                'image' => 'required|image|mimes:png,jpg,jpeg|max:10000'
+            ]);
+            $album->addMedia($request->image)->toMediaCollection();
+        }
+
+        return redirect()->back();
     }
 }
